@@ -38,7 +38,6 @@ def decoded(inp):
     usr = inp.split('.')
     for i in usr:
         try:
-            #print(i)
             if i == 27:
                 message.append(' ')
             else:
