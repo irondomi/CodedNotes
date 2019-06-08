@@ -9,13 +9,23 @@ alphabet = ['a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q',
 files = []
 files = [f for f in glob.glob('*.txt', recursive=True)]
 login = False
+attempts = 5
+deb = []
+
+
 while login == False:
     print('Password:')
     raw = input('>>>')
     if raw == 'codenotes':
         login = True
+    elif attempts == 1:
+        print('you are out of attempts')
+        print(0/0)
     else:
-        print('Incorrect')
+        attempts -= 1
+        print('Incorrect, there are %s attempts left' % attempts)
+
+print('Welcome to Code Notes alpha v1')
 def coded(inp):
     message = []
     word = []
@@ -43,7 +53,7 @@ def decoded(inp):
             else:
                 message.append(alphabet[int(i)])
         except ValueError:
-            print('There was an error')
+            pass
     fmessage = ''.join(message)
     return str(fmessage)
 
@@ -126,6 +136,8 @@ while x == 1:
         else:
             print('File not found, creating file: %s' % fname)
             write(fname)
+    elif usr[0] == 'help':
+        print('commands:\n write [file]\tread [file]\nlist')
     elif usr[0] == 'read':
         if fname in files:
             dcd = decoded(fname[:-4])
@@ -142,9 +154,8 @@ while x == 1:
             print('File not found')
     elif usr[0] == 'list':
         y = 1
+        files = [f for f in glob.glob('*.txt', recursive=True)]
         print('Files:')
         for f in files:
             dcd = decoded(f[:-4])
             print('%d) %s.txt' % (y, dcd))
-
-
